@@ -1,0 +1,8 @@
+name: EpicQuest
+main: cc.zoyn.epicquest.EpicQuest
+version: 1.0
+author: Zoyn
+commands:
+  epicquest:
+    aliases: [eq, quest]
+    description: "The EpicQuest's Main Command"
