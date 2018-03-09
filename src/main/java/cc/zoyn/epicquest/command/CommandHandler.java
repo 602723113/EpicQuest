@@ -5,6 +5,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 /**
+ * 命令管理
+ *
  * @author Zoyn
  * @since 2018-03-10
  */

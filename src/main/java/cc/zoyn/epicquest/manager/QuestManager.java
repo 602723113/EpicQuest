@@ -7,6 +7,8 @@ import org.apache.commons.lang3.Validate;
 import java.util.List;
 
 /**
+ * 用于管理所有的任务
+ *
  * @author Zoyn
  * @since 2018-03-10
  */
@@ -42,6 +44,10 @@ public class QuestManager {
      * @return {@link Quest}
      */
     public List<Quest> getQuests() {
+        return quests;
+    }
+
+    public List<Quest> loadQuests() {
         return quests;
     }
 }

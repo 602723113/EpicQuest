@@ -2,6 +2,8 @@ package cc.zoyn.epicquest;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 import static org.bukkit.Bukkit.getConsoleSender;
 
 /**
@@ -19,9 +21,17 @@ public class EpicQuest extends JavaPlugin {
 
     private static EpicQuest instnace;
 
+    private File questFolder;
+
     @Override
     public void onEnable() {
         instnace = this;
+
+        saveDefaultConfig();
+        questFolder = new File(getDataFolder(), "quests");
+        if (questFolder.exists()) {
+            questFolder.mkdirs();
+        }
 
         getConsoleSender().sendMessage("§6======§8[§eEpicQuest§8]§6======");
         getConsoleSender().sendMessage(" ");
@@ -33,5 +43,9 @@ public class EpicQuest extends JavaPlugin {
      */
     public static EpicQuest getInstnace() {
         return instnace;
+    }
+
+    public File getQuestFolder() {
+        return questFolder;
     }
 }
