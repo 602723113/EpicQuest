@@ -12,7 +12,8 @@ import org.bukkit.ChatColor;
 public enum I18n {
 
     MESSAGE_PREFIX(translateColorCode(EpicQuest.getInstnace().getLanguageConfig().getString("message-prefix"))),
-    UNKNOW_COMMAND(translateColorCode(EpicQuest.getInstnace().getLanguageConfig().getString("unknown-command")));
+    UNKNOW_COMMAND(translateColorCode(EpicQuest.getInstnace().getLanguageConfig().getString("unknown-command"))),
+    NOT_COMPLETED_PRE_QUEST(translateColorCode(EpicQuest.getInstnace().getLanguageConfig().getString("not-completed-pre-quest")));
 
     @Getter
     private String message;

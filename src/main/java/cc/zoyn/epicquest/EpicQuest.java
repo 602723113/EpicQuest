@@ -1,6 +1,8 @@
 package cc.zoyn.epicquest;
 
 import cc.zoyn.epicquest.command.CommandHandler;
+import cc.zoyn.epicquest.listener.NPCListener;
+import cc.zoyn.epicquest.listener.PlayerListener;
 import cc.zoyn.epicquest.manager.QuestManager;
 import cc.zoyn.epicquest.manager.UserManager;
 import lombok.Getter;
@@ -13,8 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static cc.zoyn.epicquest.util.ConfigurationUtils.loadYml;
-import static org.bukkit.Bukkit.getConsoleSender;
-import static org.bukkit.Bukkit.getPluginCommand;
+import static org.bukkit.Bukkit.*;
 
 /**
  * 主类
@@ -71,6 +72,10 @@ public class EpicQuest extends JavaPlugin {
         // 命令
         getPluginCommand("epicquest").setExecutor(new CommandHandler());
 
+        //监听器
+        getPluginManager().registerEvents(new NPCListener(), this);
+        getPluginManager().registerEvents(new PlayerListener(), this);
+
         getConsoleSender().sendMessage("§6===========§8[§eEpicQuest§8]§6===========");
         getConsoleSender().sendMessage("§eThis plugin develeop by: §6Zoyn");
         getConsoleSender().sendMessage("§eIf you found a bug, then you can open a issue to this project's github");
@@ -98,7 +103,7 @@ public class EpicQuest extends JavaPlugin {
             return;
         }
         int index;
-        byte[] bytes = new byte[2048];
+        byte[] bytes = new byte[1024];
         FileOutputStream downloadFile;
         downloadFile = new FileOutputStream(path);
         while ((index = input.read(bytes)) != -1) {

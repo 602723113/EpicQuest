@@ -4,3 +4,4 @@
 
 message-prefix: "§e[§6EpicQuest§e] "
 unknown-command: "&c未知命令!"
+not-completed-pre-quest: "&c未完成前置任务! %quest_name%"
