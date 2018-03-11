@@ -3,7 +3,6 @@ package cc.zoyn.epicquest.dto;
 import lombok.Data;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 表示一个任务
@@ -15,7 +14,6 @@ import java.util.UUID;
 public class Quest {
 
     private String name;
-    private UUID uuid;
     private QuestType type;
     private Goal goal;
     private boolean needPreQuest;

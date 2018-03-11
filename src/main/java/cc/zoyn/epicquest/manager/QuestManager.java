@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.Validate;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 用于管理所有的任务
@@ -14,7 +15,27 @@ import java.util.List;
  */
 public class QuestManager {
 
+    private volatile static QuestManager instance;
     private List<Quest> quests = Lists.newArrayList();
+
+    private QuestManager() {
+    }
+
+    /**
+     * 获取任务管理器实例
+     *
+     * @return {@link QuestManager}
+     */
+    public static QuestManager getInstance() {
+        if (instance == null) {
+            synchronized (QuestManager.class) {
+                if (instance == null) {
+                    instance = new QuestManager();
+                }
+            }
+        }
+        return instance;
+    }
 
     /**
      * 增加一个任务
@@ -36,6 +57,10 @@ public class QuestManager {
         if (quests.contains(quest)) {
             quests.remove(quest);
         }
+    }
+
+    public Optional<Quest> getQuestByName(String questName) {
+        return quests.stream().filter(quest -> quest.getName().equals(questName)).findAny();
     }
 
     /**
