@@ -1,11 +1,18 @@
 package cc.zoyn.epicquest.manager;
 
+import cc.zoyn.epicquest.EpicQuest;
+import cc.zoyn.epicquest.dto.Goal;
+import cc.zoyn.epicquest.dto.GoalType;
 import cc.zoyn.epicquest.dto.Quest;
+import cc.zoyn.epicquest.dto.QuestType;
+import cc.zoyn.epicquest.util.ConfigurationUtils;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.Validate;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * 用于管理所有的任务
@@ -59,8 +66,8 @@ public class QuestManager {
         }
     }
 
-    public Optional<Quest> getQuestByName(String questName) {
-        return quests.stream().filter(quest -> quest.getName().equals(questName)).findAny();
+    public Optional<Quest> getQuestById(int id) {
+        return quests.stream().filter(quest -> quest.getId() == id).findAny();
     }
 
     /**
@@ -72,7 +79,41 @@ public class QuestManager {
         return quests;
     }
 
+    /**
+     * 所有任务读取
+     *
+     * @return {@link Quest}
+     */
     public List<Quest> loadQuests() {
+        quests.clear();
+
+        Arrays.stream(Objects.requireNonNull(EpicQuest.getInstnace().getQuestFolder().listFiles())).forEach(file -> {
+            FileConfiguration config = ConfigurationUtils.loadYml(file);
+            int id = config.getInt("Quest.id");
+            String displayName = config.getString("Quest.display-name").replaceAll("&", "§");
+
+            QuestType type = QuestType.valueOf(config.getString("Quest.quest-type"));
+
+            /* 以下为任务目标的读取
+             * 以下操作需要实例化Goal
+             */
+            GoalType goalType = GoalType.valueOf(config.getString("Quest.goal.type"));
+            // 获取其所有键
+            Set<String> keys = config.getConfigurationSection("Quest.goal").getKeys(false);
+            // 内部数据 =>  键名:内容
+            Map<String, String> goalContent = Maps.newHashMap();
+            keys.forEach(s -> goalContent.put(s, config.getString("Quest.goal." + s)));
+            Goal goal = new Goal(goalType, goalContent);
+            /* 任务目标读取结束 */
+
+            boolean needPreQuest = config.getBoolean("Quest.need-pre-quest");
+            String preQuestName = config.getString("Quest.pre-quest-name:").replaceAll("&", "§");
+            List<String> rewards = config.getStringList("Quest.rewards");
+
+            addQuest(new Quest(id, displayName, type, goal, needPreQuest, preQuestName, rewards));
+
+            Bukkit.getConsoleSender().sendMessage("§e读取任务: §r" + displayName + " §e成功!");
+        });
         return quests;
     }
 }

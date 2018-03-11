@@ -1,5 +1,6 @@
 package cc.zoyn.epicquest.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
@@ -11,9 +12,11 @@ import java.util.List;
  * @since 2018-03-10
  */
 @Data
+@AllArgsConstructor
 public class Quest {
 
-    private String name;
+    private int id;
+    private String displayName;
     private QuestType type;
     private Goal goal;
     private boolean needPreQuest;

@@ -1,6 +1,7 @@
 package cc.zoyn.epicquest;
 
 import cc.zoyn.epicquest.command.CommandHandler;
+import cc.zoyn.epicquest.manager.QuestManager;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -64,6 +65,9 @@ public class EpicQuest extends JavaPlugin {
 
         getConsoleSender().sendMessage("§6======§8[§eEpicQuest§8]§6======");
         getConsoleSender().sendMessage("§eAuthor: §aZoyn");
+
+        // 任务数据读取
+        QuestManager.getInstance().loadQuests();
     }
 
     /**

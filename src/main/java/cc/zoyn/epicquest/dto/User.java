@@ -4,6 +4,7 @@ import cc.zoyn.epicquest.manager.QuestManager;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -18,12 +19,14 @@ import java.util.List;
 public class User {
 
     private String name;
-    private List<String> questNames;
+    private List<Integer> questIds;
+    private List<Integer> completedTaskIds;
 
     public User(Player player) {
         if (player != null) {
             this.name = player.getName();
-            questNames = Lists.newArrayList();
+            questIds = Lists.newArrayList();
+            completedTaskIds = Lists.newArrayList();
         }
     }
 
@@ -36,6 +39,16 @@ public class User {
         return Bukkit.getPlayerExact(name);
     }
 
+    public void addQuest(@NonNull Quest quest) {
+        this.questIds.add(quest.getId());
+    }
+
+    public void removeQuest(@NonNull Quest quest) {
+        if (questIds.contains(quest.getId())) {
+            this.questIds.remove(quest.getId());
+        }
+    }
+
     /**
      * 获取该用户所有的任务对象
      *
@@ -43,12 +56,10 @@ public class User {
      */
     public List<Quest> getQuests() {
         List<Quest> quests = Lists.newArrayList();
-        if (questNames != null && !questNames.isEmpty()) {
-            questNames.forEach(s -> {
-                if (QuestManager.getInstance().getQuestByName(s).isPresent()) {
-                    quests.add(QuestManager.getInstance().getQuestByName(s).get());
-                }
-            });
+        if (questIds != null && !questIds.isEmpty()) {
+            questIds.forEach(id -> QuestManager.getInstance().getQuestById(id).ifPresent(
+                    quest -> quests.add(QuestManager.getInstance().getQuestById(id).get()))
+            );
         }
         return quests;
     }
