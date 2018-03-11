@@ -40,6 +40,12 @@
             <version>1.16.18</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>net.citizensnpc</groupId>
+            <artifactId>Citizens</artifactId>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/citizens-2.0.22-SNAPSHOT.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
