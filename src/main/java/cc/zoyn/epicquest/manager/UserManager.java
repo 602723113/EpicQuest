@@ -6,10 +6,12 @@ import cc.zoyn.epicquest.util.ConfigurationUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static org.bukkit.Bukkit.getConsoleSender;
 
@@ -53,8 +55,20 @@ public class UserManager {
         }
     }
 
+    public Optional<User> getUserByName(String name) {
+        return users.stream().filter(user -> user.getName().equals(name)).findAny();
+    }
+
     public List<User> getUsers() {
         return users;
+    }
+
+    public User createUser(Player player) {
+        Validate.notNull(player);
+
+        User user = new User(player);
+        addUser(user);
+        return user;
     }
 
     public void loadUsers() {

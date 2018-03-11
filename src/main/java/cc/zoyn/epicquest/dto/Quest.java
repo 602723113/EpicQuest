@@ -1,9 +1,11 @@
 package cc.zoyn.epicquest.dto;
 
+import cc.zoyn.epicquest.manager.QuestManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 表示一个任务
@@ -20,7 +22,18 @@ public class Quest {
     private QuestType type;
     private Goal goal;
     private boolean needPreQuest;
-    private String preQuestName;
+    private int preQuestId;
     private List<String> rewards;
 
+    /**
+     * 获取前置任务的任务对象
+     *
+     * @return {@link Quest}
+     */
+    public Optional<Quest> getPreQuest() {
+        if (!needPreQuest) {
+            return Optional.empty();
+        }
+        return QuestManager.getInstance().getQuestById(preQuestId);
+    }
 }

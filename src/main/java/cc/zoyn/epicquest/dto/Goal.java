@@ -16,6 +16,6 @@ import java.util.Map;
 public class Goal {
 
     private GoalType type;
-    private Map<String, String> content;
+    private Map<String, Object> content;
 
 }

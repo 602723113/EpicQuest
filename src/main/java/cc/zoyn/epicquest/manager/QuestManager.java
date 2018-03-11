@@ -101,18 +101,18 @@ public class QuestManager {
              */
             GoalType goalType = GoalType.valueOf(config.getString("Quest.goal.type"));
             // 获取其所有键
-            Set<String> keys = config.getConfigurationSection("Quest.goal").getKeys(false);
+            Set<String> keys = config.getConfigurationSection("Quest.goal").getKeys(true);
             // 内部数据 =>  键名:内容
-            Map<String, String> goalContent = Maps.newHashMap();
-            keys.forEach(s -> goalContent.put(s, config.getString("Quest.goal." + s)));
+            Map<String, Object> goalContent = Maps.newHashMap();
+            keys.forEach(s -> goalContent.put(s, config.get("Quest.goal." + s)));
             Goal goal = new Goal(goalType, goalContent);
             /* 任务目标读取结束 */
 
             boolean needPreQuest = config.getBoolean("Quest.need-pre-quest");
-            String preQuestName = config.getString("Quest.pre-quest-name").replaceAll("&", "§");
+            int preQuestId = config.getInt("Quest.pre-quest-id");
             List<String> rewards = config.getStringList("Quest.rewards");
 
-            addQuest(new Quest(id, displayName, type, goal, needPreQuest, preQuestName, rewards));
+            addQuest(new Quest(id, displayName, type, goal, needPreQuest, preQuestId, rewards));
 
             Bukkit.getConsoleSender().sendMessage("§eLoad quest: §r" + displayName + " §esucessfully!");
         });
