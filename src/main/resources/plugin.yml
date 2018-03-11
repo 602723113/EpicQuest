@@ -2,6 +2,7 @@ name: EpicQuest
 main: cc.zoyn.epicquest.EpicQuest
 version: 1.0
 author: Zoyn
+softdepend: [Citizens]
 commands:
   epicquest:
     aliases: [eq, quest]

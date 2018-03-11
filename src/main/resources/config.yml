@@ -1,1 +1,4 @@
-language: zh_CN
+# 插件语言
+language: zh-CN
+# 玩家默认的任务, 第一次进入服务器时自动给予
+default-quest: 1
