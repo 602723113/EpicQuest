@@ -8,8 +8,17 @@ package cc.zoyn.epicquest.dto;
  */
 public enum QuestType {
 
+    /**
+     * 主线任务
+     */
     MAIN_QUEST,
+    /**
+     * 支线任务
+     */
     EXTENSION_QUEST,
+    /**
+     * 每日任务
+     */
     DAILY_QUEST
 
 }

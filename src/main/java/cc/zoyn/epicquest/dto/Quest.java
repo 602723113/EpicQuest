@@ -1,5 +1,7 @@
 package cc.zoyn.epicquest.dto;
 
+import lombok.Data;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -9,6 +11,7 @@ import java.util.UUID;
  * @author Zoyn
  * @since 2018-03-10
  */
+@Data
 public class Quest {
 
     private String name;
