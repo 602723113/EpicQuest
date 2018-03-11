@@ -43,6 +43,7 @@
         <dependency>
             <groupId>net.citizensnpc</groupId>
             <artifactId>Citizens</artifactId>
+            <version>2.0.22</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/citizens-2.0.22-SNAPSHOT.jar</systemPath>
         </dependency>
