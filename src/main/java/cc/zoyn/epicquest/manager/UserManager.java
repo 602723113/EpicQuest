@@ -1,10 +1,17 @@
 package cc.zoyn.epicquest.manager;
 
+import cc.zoyn.epicquest.EpicQuest;
 import cc.zoyn.epicquest.dto.User;
+import cc.zoyn.epicquest.util.ConfigurationUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.Validate;
+import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+
+import static org.bukkit.Bukkit.getConsoleSender;
 
 /**
  * @author Zoyn
@@ -48,6 +55,21 @@ public class UserManager {
 
     public List<User> getUsers() {
         return users;
+    }
+
+    public void loadUsers() {
+        users.clear();
+
+        Arrays.stream(Objects.requireNonNull(EpicQuest.getInstnace().getUserFolder().listFiles())).forEach(file -> {
+            FileConfiguration config = ConfigurationUtils.loadYml(file);
+            String name = config.getString("User.name");
+            List<Integer> questIds = config.getIntegerList("User.quest-ids");
+            List<Integer> completedTaskIds = config.getIntegerList("User.completed-quest-ids");
+
+            addUser(new User(name, questIds, completedTaskIds));
+        });
+
+        getConsoleSender().sendMessage("§eLoading user datas success!");
     }
 
 }

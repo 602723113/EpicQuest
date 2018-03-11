@@ -2,6 +2,7 @@ package cc.zoyn.epicquest;
 
 import cc.zoyn.epicquest.command.CommandHandler;
 import cc.zoyn.epicquest.manager.QuestManager;
+import cc.zoyn.epicquest.manager.UserManager;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,6 +34,8 @@ public class EpicQuest extends JavaPlugin {
     @Getter
     private File questFolder;
     @Getter
+    private File userFolder;
+    @Getter
     private String language;
     private File languageFolder;
     private File languageFile;
@@ -47,6 +50,11 @@ public class EpicQuest extends JavaPlugin {
         if (!questFolder.exists()) {
             questFolder.mkdirs();
         }
+        userFolder = new File(getDataFolder(), "users");
+        if (!userFolder.exists()) {
+            userFolder.mkdirs();
+        }
+
         languageFolder = new File(getDataFolder(), "language");
         if (!languageFolder.exists()) {
             languageFolder.mkdirs();
@@ -63,11 +71,14 @@ public class EpicQuest extends JavaPlugin {
         // 命令
         getPluginCommand("epicquest").setExecutor(new CommandHandler());
 
-        getConsoleSender().sendMessage("§6======§8[§eEpicQuest§8]§6======");
-        getConsoleSender().sendMessage("§eAuthor: §aZoyn");
+        getConsoleSender().sendMessage("§6===========§8[§eEpicQuest§8]§6===========");
+        getConsoleSender().sendMessage("§eThis plugin develeop by: §6Zoyn");
+        getConsoleSender().sendMessage("§eIf you found a bug, then you can open a issue to this project's github");
+        getConsoleSender().sendMessage("§eLoading datas...");
 
         // 任务数据读取
         QuestManager.getInstance().loadQuests();
+        UserManager.getInstance().loadUsers();
     }
 
     /**

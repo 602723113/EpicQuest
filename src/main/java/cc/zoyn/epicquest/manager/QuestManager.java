@@ -14,6 +14,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.*;
 
+import static org.bukkit.Bukkit.getConsoleSender;
+
 /**
  * 用于管理所有的任务
  *
@@ -107,13 +109,15 @@ public class QuestManager {
             /* 任务目标读取结束 */
 
             boolean needPreQuest = config.getBoolean("Quest.need-pre-quest");
-            String preQuestName = config.getString("Quest.pre-quest-name:").replaceAll("&", "§");
+            String preQuestName = config.getString("Quest.pre-quest-name").replaceAll("&", "§");
             List<String> rewards = config.getStringList("Quest.rewards");
 
             addQuest(new Quest(id, displayName, type, goal, needPreQuest, preQuestName, rewards));
 
-            Bukkit.getConsoleSender().sendMessage("§e读取任务: §r" + displayName + " §e成功!");
+            Bukkit.getConsoleSender().sendMessage("§eLoad quest: §r" + displayName + " §esucessfully!");
         });
+
+        getConsoleSender().sendMessage("§eLoading quest datas success!");
         return quests;
     }
 }
