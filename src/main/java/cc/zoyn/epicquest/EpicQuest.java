@@ -50,7 +50,7 @@ public class EpicQuest extends JavaPlugin {
         if (!languageFolder.exists()) {
             languageFolder.mkdirs();
             try {
-                writeToLocal(languageFolder.getAbsolutePath() + "zh-CN.yml", getResource("zh-CN.yml"));
+                writeToLocal(languageFolder.getAbsolutePath() + File.separator + "zh-CN.yml", getResource("zh-CN.yml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -63,8 +63,7 @@ public class EpicQuest extends JavaPlugin {
         getPluginCommand("epicquest").setExecutor(new CommandHandler());
 
         getConsoleSender().sendMessage("§6======§8[§eEpicQuest§8]§6======");
-        getConsoleSender().sendMessage(" ");
-        getConsoleSender().sendMessage("  §eAuthor: §aZoyn");
+        getConsoleSender().sendMessage("§eAuthor: §aZoyn");
     }
 
     /**

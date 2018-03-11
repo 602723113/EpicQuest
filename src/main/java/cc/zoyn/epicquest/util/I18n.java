@@ -1,9 +1,9 @@
 package cc.zoyn.epicquest.util;
 
+import cc.zoyn.epicquest.EpicQuest;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 
-import static cc.zoyn.epicquest.EpicQuest.getInstnace;
 
 /**
  * @author Zoyn
@@ -11,8 +11,8 @@ import static cc.zoyn.epicquest.EpicQuest.getInstnace;
  */
 public enum I18n {
 
-    MESSAGE_PREFIX(translateColorCode(getInstnace().getLanguageConfig().getString("message-prefix"))),
-    UNKNOW_COMMAND(translateColorCode(getInstnace().getLanguageConfig().getString("unknown-command")));
+    MESSAGE_PREFIX(translateColorCode(EpicQuest.getInstnace().getLanguageConfig().getString("message-prefix"))),
+    UNKNOW_COMMAND(translateColorCode(EpicQuest.getInstnace().getLanguageConfig().getString("unknown-command")));
 
     @Getter
     private String message;

@@ -1,6 +1,7 @@
 package cc.zoyn.epicquest.command;
 
 import cc.zoyn.epicquest.command.subcommand.HelpCommand;
+import cc.zoyn.epicquest.util.I18n;
 import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -8,9 +9,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import java.util.Map;
-
-import static cc.zoyn.epicquest.util.I18n.MESSAGE_PREFIX;
-import static cc.zoyn.epicquest.util.I18n.UNKNOW_COMMAND;
 
 /**
  * 命令管理
@@ -43,7 +41,7 @@ public class CommandHandler implements CommandExecutor {
             return true;
         }
         if (!commandMap.containsKey(args[0])) {
-            sender.sendMessage(MESSAGE_PREFIX.getMessage() + UNKNOW_COMMAND.getMessage());
+            sender.sendMessage(I18n.MESSAGE_PREFIX.getMessage() + I18n.UNKNOW_COMMAND.getMessage());
             return true;
         }
 
