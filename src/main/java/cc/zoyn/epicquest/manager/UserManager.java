@@ -3,11 +3,13 @@ package cc.zoyn.epicquest.manager;
 import cc.zoyn.epicquest.EpicQuest;
 import cc.zoyn.epicquest.dto.User;
 import cc.zoyn.epicquest.util.ConfigurationUtils;
+import cc.zoyn.epicquest.util.I18n;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -74,6 +76,7 @@ public class UserManager {
     public void loadUsers() {
         users.clear();
 
+        long time = System.currentTimeMillis();
         Arrays.stream(Objects.requireNonNull(EpicQuest.getInstnace().getUserFolder().listFiles())).forEach(file -> {
             FileConfiguration config = ConfigurationUtils.loadYml(file);
             String name = config.getString("User.name");
@@ -82,8 +85,21 @@ public class UserManager {
 
             addUser(new User(name, questIds, completedTaskIds));
         });
+        getConsoleSender().sendMessage(I18n.MESSAGE_PREFIX.getMessage() + "§eLoaded user datas into memory. (" + (System.currentTimeMillis() - time) + " ms)");
+    }
 
-        getConsoleSender().sendMessage("§eLoading user datas success!");
+    public void saveUsers() {
+        users.forEach(user -> {
+            File file = new File(EpicQuest.getInstnace().getUserFolder(), user.getName() + ".yml");
+            FileConfiguration config = ConfigurationUtils.loadYml(file);
+
+            config.set("User.name", user.getName());
+            config.set("User.quest-ids", user.getQuestIds());
+            config.set("User.completed-quest-ids", user.getCompletedTaskIds());
+
+            ConfigurationUtils.saveYml(config, file);
+        });
+        getConsoleSender().sendMessage(I18n.MESSAGE_PREFIX.getMessage() + "§eSaving user datas success!");
     }
 
 }

@@ -6,6 +6,7 @@ import cc.zoyn.epicquest.dto.GoalType;
 import cc.zoyn.epicquest.dto.Quest;
 import cc.zoyn.epicquest.dto.QuestType;
 import cc.zoyn.epicquest.util.ConfigurationUtils;
+import cc.zoyn.epicquest.util.I18n;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.Validate;
@@ -89,6 +90,7 @@ public class QuestManager {
     public List<Quest> loadQuests() {
         quests.clear();
 
+        long time = System.currentTimeMillis();
         Arrays.stream(Objects.requireNonNull(EpicQuest.getInstnace().getQuestFolder().listFiles())).forEach(file -> {
             FileConfiguration config = ConfigurationUtils.loadYml(file);
             int id = config.getInt("Quest.id");
@@ -117,7 +119,7 @@ public class QuestManager {
             Bukkit.getConsoleSender().sendMessage("§eLoad quest: §r" + displayName + " §esucessfully!");
         });
 
-        getConsoleSender().sendMessage("§eLoading quest datas success!");
+        getConsoleSender().sendMessage(I18n.MESSAGE_PREFIX.getMessage() + "§eLoaded quest datas into memory. (" + (System.currentTimeMillis() - time) + " ms)");
         return quests;
     }
 }

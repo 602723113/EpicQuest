@@ -93,7 +93,8 @@ public class EpicQuest extends JavaPlugin {
      */
     public FileConfiguration getLanguageConfig() {
         if (languageFile == null) {
-            languageFile = new File(languageFolder, language);
+            languageFile = new File(languageFolder, language + ".yml");
+//            System.out.println(languageFile.getAbsolutePath());
         }
         return loadYml(languageFile);
     }

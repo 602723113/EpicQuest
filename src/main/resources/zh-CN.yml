@@ -2,6 +2,11 @@
 #  中文汉化 By: Zoyn
 ######################################
 
-message-prefix: "§e[§6EpicQuest§e] "
+message-prefix: "&e[&6EpicQuest&e] "
 unknown-command: "&c未知命令!"
 not-completed-pre-quest: "&c未完成前置任务! %quest_name%"
+no-permission: "&c你没有权限来做这个!"
+help:
+  - "&7===== &e[&6EpicQuest &f&l| &6史诗任务&e] &7====="
+  - " &e/eq help &6查阅帮助 "
+  - " &e/eq quest [玩家] [任务ID] &6给予该玩家指定的任务 "
